@@ -6,6 +6,7 @@ target 'movieDB_app' do
   use_frameworks!
 
   # Pods for movieDB_app
+  pod 'AlamofireImage'
 
   target 'movieDB_appTests' do
     inherit! :search_paths

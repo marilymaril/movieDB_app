@@ -1,28 +1,35 @@
+# Project 1 - *Flix*
 
-# Pre-work - Tip Calculator
+**Flix** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-**Tip Calculator** is a tip calculator application for iOS.
-
-Submitted by: **Marilyn Florek**
-
-Time spent: **2** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is complete:
+The following **required** user stories are complete:
 
-* [X] User can enter a bill amount, choose a tip percentage, and see the tip and total values.
+- [X] User sees app icon in home screen and styled launch screen (+1pt)
+- [X] User can scroll through a list of movies currently playing in theaters from The Movie DB API (+5pt)
+- [X] User can "Pull to refresh" the movie list (+2pt)
+- [X] User sees a loading state while waiting for the movies to load (+2pt)
 
-The following **optional** features are implemented:
-* [ ] Settings page to change the default tip percentage.
-* [ ] UI animations
-* [ ] Remembering the bill amount across app restarts (if <10mins)
-* [ l] Using locale-specific currency and currency thousands separators.
-* [X] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+The following **stretch** user stories are implemented:
 
-The following **additional** features are implemented:
+- [X] User sees an alert when there's a networking error (+1pt)
+- [X] User can search for a movie (+3pt)
+- [X] While poster is being fetched, user see's a placeholder image (+1pt)
+- [X] User sees image transition for images coming from network, not when it is loaded from cache (+1pt)
+- [X] Customize the selection effect of the cell (+1pt)
+- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete (+2pt)
 
-- [ ] List anything else that you can get done to improve the app functionality!
+The following **additional** user stories are implemented:
+
+- [ ] List anything else that you can get done to improve the app functionality! (+1-3pts)
+
+Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
+
+1.
+2.
 
 ## Video Walkthrough
 
@@ -34,11 +41,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-N/A
+Describe any challenges encountered while building the app.
 
 ## License
 
-Copyright 2018 Marilyn Florek
+Copyright [2018] [Marilyn Florek]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
