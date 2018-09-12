@@ -56,9 +56,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
                 
                 alertController.addAction(OKAction)
                 
-                self.present(alertController, animated: true) {
-                    // optional code for what happens after the alert controller has finished presenting
-                }
+                self.present(alertController, animated: true) {}
                 print(error.localizedDescription)
             } else if let data = data {
                 self.activityIndicator.stopAnimating()
@@ -88,7 +86,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.lightGray
         cell.selectedBackgroundView = backgroundView
@@ -142,8 +140,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         getData()
     }
-    
-//    override func 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
