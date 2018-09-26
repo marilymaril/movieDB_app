@@ -137,6 +137,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         tableView.reloadData()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         getData()
     }
