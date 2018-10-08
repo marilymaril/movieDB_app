@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -262,9 +263,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mZz-KO-SQU">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mZz-KO-SQU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gWt-Xy-wej">
                                     <size key="itemSize" width="187" height="277"/>
@@ -280,9 +280,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="187" height="277"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSw-CC-eVG">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSw-CC-eVG">
                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="286"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="189" id="6sb-pp-arG"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="286" id="c8q-4D-XoF"/>
+                                                        <constraint firstAttribute="width" secondItem="gSw-CC-eVG" secondAttribute="height" multiplier="189:286" id="h3s-os-QXA"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -295,6 +299,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="mZz-KO-SQU" secondAttribute="bottom" id="BgU-vB-M2G"/>
+                            <constraint firstItem="mZz-KO-SQU" firstAttribute="trailing" secondItem="oiD-g0-nWJ" secondAttribute="trailing" id="Jsz-zb-5vo"/>
+                            <constraint firstItem="mZz-KO-SQU" firstAttribute="leading" secondItem="oiD-g0-nWJ" secondAttribute="leading" id="ZI4-9D-aqk"/>
+                            <constraint firstItem="mZz-KO-SQU" firstAttribute="top" secondItem="ko8-pg-DNw" secondAttribute="top" id="jy9-gi-fHh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="oiD-g0-nWJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="xWg-WF-M0A"/>
@@ -338,7 +348,7 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bXs-yH-hAf"/>
+        <segue reference="WbM-fQ-NMD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

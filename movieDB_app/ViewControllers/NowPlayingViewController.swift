@@ -14,9 +14,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [[String: Any]] = []
+    var movies: [Movie] = []
+    var filteredData: [Movie] = []
     var index: Int!
-    var filteredData: [[String:Any]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,43 +37,31 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func getData() {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
-        
-        let request = URLRequest(url: url!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        
-        let task = session.dataTask(with: request) { (data,response,error) in
-            if let error = error {
-                let alertController = UIAlertController(title: "Network Error", message: error.localizedDescription, preferredStyle: .alert)
+        MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
+                self.activityIndicator.stopAnimating()
+                self.tableView.isHidden = false
+                self.tableView.rowHeight = 200
+                self.movies = movies
+                self.filteredData = movies
+                self.tableView.reloadData()
+            } else {
+                let alertController = UIAlertController(title: "Network Error", message: error?.localizedDescription, preferredStyle: .alert)
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
                 }
                 alertController.addAction(cancelAction)
-                
+
                 let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                    self.getData()
                 }
-                
+
                 alertController.addAction(OKAction)
-                
+
                 self.present(alertController, animated: true) {}
-                print(error.localizedDescription)
-            } else if let data = data {
-                self.activityIndicator.stopAnimating()
-                self.tableView.isHidden = false
-                self.tableView.rowHeight = 200
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
-                
-                let movies = dataDictionary["results"] as! [[String:Any]]
-                
-                self.movies = movies
-                self.filteredData = movies
-                
-                self.tableView.reloadData()
+                print(error?.localizedDescription as Any)
             }
         }
-        
-        task.resume()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,24 +81,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
         let movie = filteredData[indexPath.row]
         
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let placeholderImage = UIImage(named: "appicon")!
-        let posterPath: URL
-        if let poster = movie["poster_path"] as? String {
-            posterPath = URL(string: baseURLString + poster)!
-            cell.PhotoImageView.af_setImage(
-                withURL: posterPath,
-                placeholderImage: placeholderImage,
-                imageTransition: .crossDissolve(0.2)
-            )
-        } else {
-            cell.PhotoImageView.image = placeholderImage
-        }
-        
-        cell.movieOverview.text = overview
-        cell.movieTitle.text = title
+        cell.movie = movie
+
         return cell
     }
     
@@ -130,8 +102,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredData = searchText.isEmpty ? self.movies : movies.filter{ (item: [String:Any]) -> Bool in
-            return (item["title"] as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        filteredData = searchText.isEmpty ? self.movies : movies.filter{ (item: Movie) -> Bool in
+            return (item.title).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
 
         tableView.reloadData()

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import AlamofireImage
 
 extension String {
     var htmlToAttributedString: NSAttributedString? {
@@ -33,7 +32,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var controller: UIView!
     
-    var movie: [String: Any] = [:]
+    var movie: Movie!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,43 +44,37 @@ class DetailViewController: UIViewController {
         movieOverview.backgroundColor = UIColor.black
         moviePoster.backgroundColor = UIColor.black
         movieBackdrop.backgroundColor = UIColor.black
+        
         setView()
     }
     
     func setView() {
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let release = movie["release_date"] as! String
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let largeURLString = "https://image.tmdb.org/t/p/original"
         let placeholderImage = UIImage(named: "appicon")!
         
-        movieTitle.text = title
-        movieOverview.text = overview
-        movieRelease.text = release
-        
-        if let poster = movie["poster_path"] as? String {
-            let posterPath = URL(string: baseURLString + poster)!
+        movieTitle.text = movie.title
+        movieOverview.text = movie.overview
+        movieRelease.text = movie.release_date
+
+        if movie.posterURL != nil {
             moviePoster.af_setImage(
-                withURL: posterPath,
+                withURL: movie.posterURL!,
                 placeholderImage: placeholderImage,
                 imageTransition: .crossDissolve(0.2)
             )
-
         } else {
             moviePoster.image = placeholderImage
         }
         
-        if let backdrop = movie["backdrop_path"] as? String {
-            let backdropPath = URL(string: largeURLString + backdrop)!
+        if movie.backdropPath != nil {
             movieBackdrop.af_setImage(
-                withURL: backdropPath,
+                withURL: movie.backdropPath!,
                 placeholderImage: placeholderImage,
                 imageTransition: .crossDissolve(0.2)
             )
         } else {
             movieBackdrop.image = placeholderImage
         }
+        
         activityIndicator.stopAnimating()
     }
     
